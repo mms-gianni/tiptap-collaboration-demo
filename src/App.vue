@@ -1,16 +1,19 @@
 <template>
   <div id="app">
-    <Navigation msg="Welcome to Your Vue.js App"/>
+    <Navigation />
+    <Tiptapexample />
   </div>
 </template>
 
 <script>
 import Navigation from './components/Navigation.vue'
+import Tiptapexample from './components/Tiptapexample.vue'
 
 export default {
   name: 'app',
   components: {
-    Navigation
+    Navigation,
+    Tiptapexample
   }
 }
 </script>
