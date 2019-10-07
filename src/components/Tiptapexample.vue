@@ -28,6 +28,7 @@
 <script>
 
 import io from 'socket.io-client'
+import axios from 'axios'
 import { Editor, EditorContent } from 'tiptap'
 import {
   HardBreak,
@@ -103,6 +104,21 @@ export default {
           }),
         ],
       })
+
+      // Load Random Userdata, after Editor is intiated
+      axios
+        .get('https://randomuser.me/api/')
+        .then(response => {
+          let me = {
+            displayname: response.data.results[0].name.first+" "+response.data.results[0].name.last,
+            displaycolor: this.getDisplaycolor(this.socket.id),
+            thumbnail: response.data.results[0].picture.thumbnail
+          }
+          this.editor.extensions.options.participants.me = me
+          this.socket.emit("cursorchange", me)
+
+        })
+
     },
     setCount(count) {
       this.count = count
@@ -128,23 +144,9 @@ export default {
   },
   mounted() {
 
-    axios
-      .get('https://randomuser.me/api/')
-      .then(response => {
-        let me = {
-          displayname: response.data.results[0].name.first+" "+response.data.results[0].name.last,
-          displaycolor: this.getDisplaycolor(this.socket.id),
-          thumbnail: response.data.results[0].picture.thumbnail
-        }
-        this.editor.extensions.options.participants.me = me
 
-        this.socket.emit("cursorchange", me)
-      })
-
-    // server implementation: https://glitch.com/edit/#!/tiptap-sockets
-    this.socket = io('ws://localhost:3000/doc-99')
-    //this.socket = io('ws://localhost:3000/my-namespace')
-    //this.socket = io('ws://localhost:3000')
+    //this.socket = io('ws://localhost:3000/doc-99')
+    this.socket = io('ws://tiptap-collaborationserver.herokuapp.com/doc-99')
       // get the current document and its version
       .on('init', data => this.onInit(data))
       // send all updates to the collaboration extension
@@ -153,10 +155,9 @@ export default {
       .on('getCount', count => this.setCount(count))
       // update Cursor position of collaborators
       .on('cursorupdate', participants => {
-      	this.editor.extensions.options.participants.update(participants)
-      	this.setParticipants(participants)
+        this.editor.extensions.options.participants.update(participants)
+        this.setParticipants(participants)
       })
-
   },
   beforeDestroy() {
     this.editor.destroy()
