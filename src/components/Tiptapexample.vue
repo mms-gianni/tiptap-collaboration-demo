@@ -146,7 +146,7 @@ export default {
 
 
     //this.socket = io('ws://localhost:3000/doc-99')
-    this.socket = io('ws://tiptap-collaborationserver.herokuapp.com/doc-99')
+    this.socket = io('wss://tiptap-collaborationserver.herokuapp.com/doc-99')
       // get the current document and its version
       .on('init', data => this.onInit(data))
       // send all updates to the collaboration extension
