@@ -1,12 +1,16 @@
 <template>
   <div class="editor">
-    <h2>
-      Collaborative Editing
-    </h2>
-    <div class="message">
-    </div>
+
     <template v-if="editor && !loading">
+    <b-container class="bv-row">
+      <b-row>
+        <b-col cols="8">
+      <editor-content class="editor__content" :editor="editor" /></b-col>
+        <b-col>
       <div class="user-list">
+      <div class="count">
+        {{ count }} {{ count === 1 ? 'user' : 'users' }} connected
+      </div>
         <div v-for="participant in participants" class="user-block">
           <img class="img-circle img-bordered-sm" :src="participant.thumbnail" alt="user image" :style="{ border: '2px solid '+participant.displaycolor}">
             <span class="username">
@@ -14,10 +18,10 @@
             </span>
         </div>
       </div>
-      <div class="count">
-        {{ count }} {{ count === 1 ? 'user' : 'users' }} connected
-      </div>
-      <editor-content class="editor__content" :editor="editor"  />
+        </b-col>
+      </b-row>
+    </b-container>
+
     </template>
     <em v-else>
       Connecting to socket server …
@@ -238,6 +242,16 @@ export default {
   /*border-color: #555 transparent transparent transparent;*/
 }
 
+.editor__content {
+  border: 1px solid #ced4da;
+  border-radius: .25rem;
+  padding: .375rem .75rem;
+  background-color: #f5f5f5;
+}
+
+.bv-row {
+  padding-top: 20px;
+}
 .ProseMirror-widget {
 	position:absolute;
 	
