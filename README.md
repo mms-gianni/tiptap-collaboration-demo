@@ -1,4 +1,12 @@
-# tiptap-example
+# TipTap Collaboration Demo
+
+
+Live Demo here: 
+https://tiptap-collaboration-demo.netlify.com/
+
+
+Uses the tiptap Colaborationserver here: 
+https://github.com/mms-gianni/tiptap-collaborationserver 
 
 ## Project setup
 ```
