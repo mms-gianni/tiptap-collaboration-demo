@@ -10,16 +10,16 @@ export default class Participants extends Extension {
   init() {
     this.editor.on('init', ({ state }) => {
       // let other participants know you are here
-      this.options.me['cursor'] = state.selection.anchor
-      this.options.me['focused'] = state.selection.focused
+      this.options.me.cursor = state.selection.anchor
+      this.options.me.focused = state.selection.focused
       this.options.socket.emit("cursorchange", this.options.me)
     })
     
     // send an update on every transaction.
     this.editor.on('transaction', ({ state }) => {
-        this.options.me['cursor'] = state.selection.anchor
-        this.options.me['focused'] = state.selection.focused
-        this.options.socket.emit("cursorchange", this.options.me)
+      this.options.me.cursor = state.selection.anchor
+      this.options.me.focused = state.selection.focused
+      this.options.socket.emit("cursorchange", this.options.me)
     })
     
   }
@@ -29,7 +29,7 @@ export default class Participants extends Extension {
       participants: {},
       me: {},
       socket: '',
-      update: ( participants ) => {
+      update: participants => {
         const { state, view, schema } = this.editor
 
         this.participants = participants
@@ -45,7 +45,7 @@ export default class Participants extends Extension {
               var displaycolor = 'style="background-color:'+dec.displaycolor+'; border-top-color:'+dec.displaycolor+'"'
 
               const dom = document.createElement('div')
-              if(dec.focused==false) {
+              if (dec.focused==false) {
                 cursorclass += ' inactive'
               }
               

@@ -77,8 +77,8 @@ export default {
           new Italic(),
           new History(),
           new Participants({
-          	socket: this.socket,
-          	/*
+            socket: this.socket,
+            /*
             displayname: document.querySelector('meta[name="userName"]').getAttribute('content'),
             displaycolor: this.getDisplaycolor(this.socket.id),
             */
@@ -94,7 +94,7 @@ export default {
             //displaycolor: this.getDisplaycolor(document.querySelector('meta[name="userName"]').getAttribute('content')),
           }),
           new Collaboration({
-          	clientID: this.socket.id,
+            clientID: this.socket.id,
 
             // the initial version we start with
             // version is an integer which is incremented with every change
@@ -148,7 +148,6 @@ export default {
   },
   mounted() {
 
-
     //this.socket = io('ws://localhost:3000/doc-99')
     this.socket = io('wss://tiptap-collaborationserver.herokuapp.com/doc-99')
       // get the current document and its version
@@ -196,19 +195,19 @@ export default {
 }
 
 .cursor.me {
-	display: none;
+  display: none;
     /*background-color: #F55;*/
 }
 .cursor.inactive {
     opacity: 0.5;
 }
 .cursor.me::after{
-	display: none;
-  	border-color: inherit;
+  display: none;
+    border-color: inherit;
 }
 .cursor.inactive::after {
     opacity: inherit;
-  	border-color: inherit;
+    border-color: inherit;
 }
 
 .cursor {
@@ -253,10 +252,10 @@ export default {
   padding-top: 20px;
 }
 .ProseMirror-widget {
-	position:absolute;
-	
+  position:absolute;
+  
 
-	width: 0.1px;
-	/*border-style: solid;*/
+  width: 0.1px;
+  /*border-style: solid;*/
 }
 </style>

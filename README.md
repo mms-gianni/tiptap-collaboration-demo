@@ -1,5 +1,8 @@
 # TipTap Collaboration Demo
 
+This Demo shows how to implement a collaboration Editor with participants.
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/a09ae0aa-a7fa-4432-9538-0b0661c2ac03/deploy-status)](https://app.netlify.com/sites/tiptap-collaboration-demo/deploys)
 
 Live Demo here: 
 https://tiptap-collaboration-demo.netlify.com/
