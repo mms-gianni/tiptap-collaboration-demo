@@ -2,7 +2,9 @@
 
 This Demo shows how to implement a collaboration Editor with participants.
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/a09ae0aa-a7fa-4432-9538-0b0661c2ac03/deploy-status)](https://app.netlify.com/sites/tiptap-collaboration-demo/deploys)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/a09ae0aa-a7fa-4432-9538-0b0661c2ac03/deploy-status)](https://tiptap-collaboration-demo.netlify.com)
+[![GitHub issues badge](https://img.shields.io/github/issues/mms-gianni/tiptap-collaboration-demo)] [![GitHub forks badge](https://img.shields.io/github/forks/mms-gianni/tiptap-collaboration-demo)] [![GitHub stars badge](https://img.shields.io/github/stars/mms-gianni/tiptap-collaboration-demo)] [![GitHub issues license](https://img.shields.io/github/license/mms-gianni/tiptap-collaboration-demo)]
+
 
 Live Demo here: 
 https://tiptap-collaboration-demo.netlify.com/
