@@ -72,10 +72,6 @@ export default {
           new Participants({
             socket: this.socket,
             /*
-            displayname: document.querySelector('meta[name="userName"]').getAttribute('content'),
-            displaycolor: this.getDisplaycolor(this.socket.id),
-            */
-            /*
             me: {
               //displayname: document.querySelector('meta[name="userName"]').getAttribute('content'),
               //displayname: this.randomuser.name.first+" "+this.randomuser.name.last,
@@ -84,7 +80,6 @@ export default {
             },
             */
             //me: {},
-            //displaycolor: this.getDisplaycolor(document.querySelector('meta[name="userName"]').getAttribute('content')),
           }),
           new Collaboration({
             clientID: this.socket.id,
