@@ -7,24 +7,14 @@
         <b-col cols="8">
       <editor-content class="editor__content" :editor="editor" /></b-col>
         <b-col>
-      <div class="user-list">
-      <div class="count">
-        {{ count }} {{ count === 1 ? 'user' : 'users' }} connected
-      </div>
-        <div v-for="participant in participants" class="user-block">
-          <img class="img-circle img-bordered-sm" :src="participant.thumbnail" alt="user image" :style="{ border: '2px solid '+participant.displaycolor}">
-            <span class="username">
-                <a href="#">{{participant.displayname}}</a>
-            </span>
-        </div>
-      </div>
+          <participantslist :participants="participants" :count="count"/>
         </b-col>
       </b-row>
     </b-container>
 
     </template>
     <em v-else>
-      Connecting to socket server …
+      Connecting to Heroku socket server … it may take a moment to spin it up.
     </em>
   </div>
 </template>
@@ -47,10 +37,13 @@ import Participants from './extensions/Participants.js'
 //import Collaboration from '../extensions/Collaboration.js'
 //import Collaborationparticipants from '../extensions/Collaborationparticipants.js'
 
+import Participantslist from './Participantslist.vue'
+
 export default {
   name: 'Tiptapexample',
   components: {
     EditorContent,
+    Participantslist,
   },
   data() {
     return {
