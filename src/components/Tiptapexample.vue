@@ -5,7 +5,44 @@
     <b-container class="bv-row">
       <b-row>
         <b-col cols="8">
-      <editor-content class="editor__content" :editor="editor" /></b-col>
+          <editor-menu-bar :editor="editor" v-slot="{ commands, isActive }">
+            <div class="menubar">
+              <button
+                class="menubar__button btn btn-default"
+                :class="{ 'is-active': isActive.bold() }"
+                @click="commands.bold"
+              >
+                <i class="fa fa-bold">Bold</i>
+              </button>
+
+              <button
+                class="menubar__button btn btn-default"
+                :class="{ 'is-active': isActive.italic() }"
+                @click="commands.italic"
+              >
+                <i class="fa fa-italic">italic</i>
+              </button>
+
+              <button
+                class="menubar__button btn btn-default"
+                :class="{ 'is-active': isActive.strike() }"
+                @click="commands.strike"
+              >
+                <i class="fa fa-strikethrough">strike</i>
+              </button>
+
+              <button
+                class="menubar__button btn btn-default"
+                :class="{ 'is-active': isActive.underline() }"
+                @click="commands.underline"
+              >
+                <i class="fa fa-underline">underline</i>
+              </button>
+            </div>
+          </editor-menu-bar>
+
+          <editor-content class="editor__content" :editor="editor" />
+        </b-col>
         <b-col>
           <participantslist :participants="participants" :count="count"/>
         </b-col>
@@ -23,13 +60,15 @@
 
 import io from 'socket.io-client'
 import axios from 'axios'
-import { Editor, EditorContent } from 'tiptap'
+import { Editor, EditorContent, EditorMenuBar } from 'tiptap'
 import {
   HardBreak,
   Heading,
   Bold,
   Code,
   Italic,
+  Strike,
+  Underline,
   History,
   Collaboration,
 } from 'tiptap-extensions'
@@ -43,6 +82,7 @@ export default {
   name: 'Tiptapexample',
   components: {
     EditorContent,
+    EditorMenuBar,
     Participantslist,
   },
   data() {
@@ -68,6 +108,8 @@ export default {
           new Bold(),
           new Code(),
           new Italic(),
+          new Strike(),
+          new Underline(),
           new History(),
           new Participants({
             socket: this.socket,
@@ -135,7 +177,7 @@ export default {
     },
   },
   mounted() {
-    
+    console.log(process.env)
     this.socket = io(process.env.VUE_APP_SOCKETSERVER_HOST+':'+process.env.VUE_APP_SOCKETSERVER_PORT+'/doc-99')
       // get the current document and its version
       .on('init', data => this.onInit(data))
