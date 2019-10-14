@@ -1,5 +1,8 @@
 <template>
   <div class="editor">
+    <b-alert variant="success" show dismissible>
+      You are automaticly logged in as : {{ editor.extensions.options.participants.me.displayname }}
+    </b-alert>
 
     <template v-if="editor && !loading">
     <b-container class="bv-row">
@@ -92,7 +95,7 @@
           <editor-content class="editor__content" :editor="editor" />
         </b-col>
         <b-col>
-          <participantslist :participants="participants" :count="count"/>
+          <participantslist :participants="participants" :count="count" :MyClientID="socket.id" />
         </b-col>
       </b-row>
     </b-container>
@@ -124,9 +127,6 @@ import {
   Collaboration,
 } from 'tiptap-extensions'
 import Participants from './extensions/Participants.js'
-//import Collaboration from '../extensions/Collaboration.js'
-//import Collaborationparticipants from '../extensions/Collaborationparticipants.js'
-
 import Participantslist from './Participantslist.vue'
 
 export default {
@@ -340,6 +340,12 @@ export default {
 
   width: 0.1px;
   /*border-style: solid;*/
+}
+
+button .is-active {
+  font-color:#FFF;
+  background-color: #000;
+  font-weight: bold;
 }
 
 blockquote {
