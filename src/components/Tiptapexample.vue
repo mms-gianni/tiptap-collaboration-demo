@@ -1,7 +1,7 @@
 <template>
   <div class="editor">
     <b-alert variant="success" show dismissible>
-      You are automaticly logged in as : {{ editor.extensions.options.participants.me.displayname }}
+      You are automaticly logged in with a random user. You are : <b>{{ editor.extensions.options.participants.me.displayname }} </b>
     </b-alert>
 
     <template v-if="editor && !loading">
@@ -359,7 +359,6 @@ blockquote {
     margin: 1rem auto 2rem;
     color: #4a4a4a;
     background: #E8E8E8;
-    left: 50px;
 }
 blockquote p{
   margin-bottom: 0px;
