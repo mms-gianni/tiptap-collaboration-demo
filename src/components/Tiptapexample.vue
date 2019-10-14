@@ -12,7 +12,7 @@
                 :class="{ 'is-active': isActive.bold() }"
                 @click="commands.bold"
               >
-                <i class="fa fa-bold">Bold</i>
+                <i class="fa fa-bold"></i>
               </button>
 
               <button
@@ -20,7 +20,7 @@
                 :class="{ 'is-active': isActive.italic() }"
                 @click="commands.italic"
               >
-                <i class="fa fa-italic">italic</i>
+                <i class="fa fa-italic"></i>
               </button>
 
               <button
@@ -28,7 +28,7 @@
                 :class="{ 'is-active': isActive.strike() }"
                 @click="commands.strike"
               >
-                <i class="fa fa-strikethrough">strike</i>
+                <i class="fa fa-strikethrough"></i>
               </button>
 
               <button
@@ -36,7 +36,55 @@
                 :class="{ 'is-active': isActive.underline() }"
                 @click="commands.underline"
               >
-                <i class="fa fa-underline">underline</i>
+                <i class="fa fa-underline"></i>
+              </button>
+
+              <button
+                class="menubar__button btn btn-default"
+                :class="{ 'is-active': isActive.heading({ level: 1 }) }"
+                @click="commands.heading({ level: 1 })"
+              >
+                <i class="fa fa-header">1</i>
+              </button>
+
+              <button
+                class="menubar__button btn btn-default"
+                :class="{ 'is-active': isActive.heading({ level: 2 }) }"
+                @click="commands.heading({ level: 2 })"
+              >
+                <i class="fa fa-header">2</i>
+              </button>
+
+              <button
+                class="menubar__button btn btn-default"
+                :class="{ 'is-active': isActive.heading({ level: 3 }) }"
+                @click="commands.heading({ level: 3 })"
+              >
+                <i class="fa fa-header">3</i>
+              </button>
+<!--
+              <button
+                class="menubar__button btn btn-default"
+                :class="{ 'is-active': isActive.bullet_list() }"
+                @click="commands.bullet_list"
+              >
+                <i class="fa fa-list-ul"></i>
+              </button>
+
+              <button
+                class="menubar__button btn btn-default"
+                :class="{ 'is-active': isActive.ordered_list() }"
+                @click="commands.ordered_list"
+              >
+                <i class="fa fa-list-ol"></i>
+              </button>
+-->
+              <button
+                class="menubar__button btn btn-default"
+                :class="{ 'is-active': isActive.blockquote() }"
+                @click="commands.blockquote"
+              >
+                <i class="fa fa-quote-right"></i>
               </button>
             </div>
           </editor-menu-bar>
@@ -69,6 +117,9 @@ import {
   Italic,
   Strike,
   Underline,
+    //OrderedList,
+    //BulletList,
+    Blockquote,
   History,
   Collaboration,
 } from 'tiptap-extensions'
@@ -110,6 +161,9 @@ export default {
           new Italic(),
           new Strike(),
           new Underline(),
+          //new OrderedList(),
+          //new BulletList(),
+          new Blockquote(),
           new History(),
           new Participants({
             socket: this.socket,
