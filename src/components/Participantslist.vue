@@ -3,11 +3,11 @@
         <div class="count">
           {{ count }} {{ count === 1 ? 'user' : 'users' }} connected
         </div>
-        <div v-for="participant in participants" class="user-block">
+        <div v-for="participant in participants" class="user-block" :class="MyClientID === participant.clientID ? 'me' : ''">
           <img class="img-circle" :src="participant.thumbnail" alt="user image" :style="{ border: '2px solid '+participant.displaycolor}">
-            <span class="username">
-                <a href="#">{{participant.displayname}}</a>
-            </span>
+          <span class="username">
+              <a href="#">{{participant.displayname}} {{ MyClientID === participant.clientID ? '(YOU)' : '' }}</a>
+          </span>
         </div>
       </div>
 
@@ -20,7 +20,8 @@ export default {
   props: {
     participants: Object,
     count: Number,
-  },
+    MyClientID: String,
+  }
 }
 </script>
 
@@ -36,5 +37,11 @@ export default {
 }
 .user-block {
   margin-bottom: 10px;
+  padding: 5px;
+  margin-bottom: 5px;
+  border-radius: .25rem;
+}
+.user-block.me {
+  background-color: #D5D5D5;
 }
 </style>
