@@ -341,4 +341,41 @@ export default {
   width: 0.1px;
   /*border-style: solid;*/
 }
+
+blockquote {
+    border-radius: 3px;
+    position: relative;  /*  <--- */
+    font-style: italic;
+    text-align: center;
+    padding: 1rem 1.2rem;
+    width: 70%;  /* create space for the quotes */
+    color: #4a4a4a;
+    margin: 1rem auto 2rem;
+    color: #4a4a4a;
+    background: #E8E8E8;
+    left: 50px;
+}
+blockquote p{
+  margin-bottom: 0px;
+}
+/* -- create the quotation marks -- */
+blockquote:before,
+blockquote:after{
+    font-family: FontAwesome;
+    position: absolute;
+    /* -- inside the relative position of blockquote -- */
+    top: 13px;
+    color: #E8E8E8;
+    font-size: 34px;
+}
+blockquote:before{
+    content: "\f10d";
+    margin-right: 13px;
+    right: 100%;
+}
+blockquote:after{
+    content: "\f10e";
+    margin-left: 13px;
+    left: 100%;  
+}
 </style>
