@@ -320,8 +320,9 @@ export default {
   left: 0%;
   border-width: 5px;
   border-style: solid;
-  border-color: inherit
+  border-color: inherit;
   /*border-color: #555 transparent transparent transparent;*/
+  color: transparent;
 }
 
 .editor__content {
