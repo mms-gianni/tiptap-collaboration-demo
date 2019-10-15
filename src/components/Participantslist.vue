@@ -3,6 +3,8 @@
         <div class="count">
           {{ count }} {{ count === 1 ? 'user' : 'users' }} connected
         </div>
+
+        <b-alert show :class="count > 1 ? 'hide' : ''">You are alone. Open another Brwoser to see the collaboration feature. <a href="/" target="_blank">click here</a></b-alert>
         <div v-for="participant in participants" class="user-block" :class="MyClientID === participant.clientID ? 'me' : ''">
           <img class="img-circle" :src="participant.thumbnail" alt="user image" :style="{ border: '2px solid '+participant.displaycolor}">
           <span class="username">
@@ -43,5 +45,8 @@ export default {
 }
 .user-block.me {
   background-color: #D5D5D5;
+}
+.hide {
+  display: none;
 }
 </style>
