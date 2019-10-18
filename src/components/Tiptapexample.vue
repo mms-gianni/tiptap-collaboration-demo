@@ -142,7 +142,11 @@ export default {
       editor: null,
       socket: null,
       count: 0,
-      participants: null,
+      participants: {
+        me: {
+          displayname: '',
+        }
+      },
     }
   },
   methods: {  
