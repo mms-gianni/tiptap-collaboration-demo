@@ -1,7 +1,7 @@
 <template>
   <div class="editor">
     <b-alert variant="success" show dismissible>
-      You are automaticly logged in with a random user. You are : <b>{{ editor.extensions.options.participants.me.displayname }} </b>
+      You are automaticly logged in with a random user. You are : <b> </b>
     </b-alert>
 
     <template v-if="editor && !loading">
@@ -95,7 +95,7 @@
           <editor-content class="editor__content" :editor="editor" />
         </b-col>
         <b-col>
-          <participantslist :participants="participants" :count="count" :MyClientID="socket.id" />
+          <!--<participantslist :participants="participants" :count="count" :MyClientID="socket.id" />-->
         </b-col>
       </b-row>
     </b-container>
@@ -124,9 +124,10 @@ import {
     //BulletList,
     Blockquote,
   History,
-  Collaboration,
+  //Collaboration,
 } from 'tiptap-extensions'
-import Participants from './extensions/Participants.js'
+import Collaboration from './extensions/Collaboration.js'
+import Cursors from './extensions/Cursors.js'
 import Participantslist from './Participantslist.vue'
 
 export default {
@@ -169,18 +170,7 @@ export default {
           //new BulletList(),
           new Blockquote(),
           new History(),
-          new Participants({
-            socket: this.socket,
-            /*
-            me: {
-              //displayname: document.querySelector('meta[name="userName"]').getAttribute('content'),
-              //displayname: this.randomuser.name.first+" "+this.randomuser.name.last,
-              displayname: "bla",
-              displaycolor: this.getDisplaycolor(this.socket.id),
-            },
-            */
-            //me: {},
-          }),
+          new Cursors(),
           new Collaboration({
             clientID: this.socket.id,
 
@@ -190,11 +180,16 @@ export default {
             // debounce changes so we can save some requests
             debounce: 0,
             // onSendable is called whenever there are changed we have to send to our server
-            onSendable: ({ sendable }) => {
+            onSendable: (sendable) => {
+              //console.log(sendable)
               this.socket.emit('update', sendable)
             },
           }),
         ],
+        onUpdate: (update) =>{
+          //console.log(update.state.selection.from)
+
+        }
       })
 
       // Load Random Userdata, after Editor is intiated
@@ -206,9 +201,7 @@ export default {
             displaycolor: this.getDisplaycolor(this.socket.id),
             thumbnail: response.data.results[0].picture.thumbnail
           }
-          this.editor.extensions.options.participants.me = me
-          this.socket.emit("cursorchange", me)
-
+          //this.editor.extensions.options.participants.me = me
         })
 
     },
@@ -238,16 +231,18 @@ export default {
     console.log(process.env)
     this.socket = io(process.env.VUE_APP_SOCKETSERVER_HOST+':'+process.env.VUE_APP_SOCKETSERVER_PORT+'/doc-99')
       // get the current document and its version
-      .on('init', data => this.onInit(data))
-      // send all updates to the collaboration extension
-      .on('update', data => this.editor.extensions.options.collaboration.update(data))
+      .on('init', data => {
+        this.onInit(data)
+        this.editor.extensions.options.cursors.update(data.selections)
+      })
+      // send all updates to the collaboration 
+      .on('update', data => {
+        // console.log('onupdate', data.selections)
+        this.editor.extensions.options.collaboration.update(data)
+        this.editor.extensions.options.cursors.update(data.selections)
+      })
       // get count of connected users
       .on('getCount', count => this.setCount(count))
-      // update Cursor position of collaborators
-      .on('cursorupdate', participants => {
-        this.editor.extensions.options.participants.update(participants)
-        this.setParticipants(participants)
-      })
   },
   beforeDestroy() {
     this.editor.destroy()
