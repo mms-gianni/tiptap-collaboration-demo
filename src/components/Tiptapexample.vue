@@ -1,7 +1,7 @@
 <template>
   <div class="editor">
     <b-alert variant="success" show dismissible>
-      You are automaticly logged in with a random user. You are : <b>{{ editor.extensions.options.participants.me.displayname }} </b>
+      You are automaticly logged in with a random user. You are : <b>{{ editor.extensions.options.collaboration.me.displayname }}</b>
     </b-alert>
 
     <template v-if="editor && !loading">
@@ -124,9 +124,9 @@ import {
     //BulletList,
     Blockquote,
   History,
-  Collaboration,
+  //Collaboration,
 } from 'tiptap-extensions'
-import Participants from './extensions/Participants.js'
+import Collaboration from './extensions/Collaboration.js'
 import Participantslist from './Participantslist.vue'
 
 export default {
@@ -169,8 +169,9 @@ export default {
           //new BulletList(),
           new Blockquote(),
           new History(),
-          new Participants({
+          new Collaboration({
             socket: this.socket,
+            clientID: this.socket.id,
             /*
             me: {
               //displayname: document.querySelector('meta[name="userName"]').getAttribute('content'),
@@ -180,9 +181,6 @@ export default {
             },
             */
             //me: {},
-          }),
-          new Collaboration({
-            clientID: this.socket.id,
 
             // the initial version we start with
             // version is an integer which is incremented with every change
@@ -191,7 +189,7 @@ export default {
             debounce: 0,
             // onSendable is called whenever there are changed we have to send to our server
             onSendable: ({ sendable }) => {
-              this.socket.emit('update', sendable)
+              //this.socket.emit('update', sendable)
             },
           }),
         ],
@@ -206,7 +204,7 @@ export default {
             displaycolor: this.getDisplaycolor(this.socket.id),
             thumbnail: response.data.results[0].picture.thumbnail
           }
-          this.editor.extensions.options.participants.me = me
+          this.editor.extensions.options.collaboration.me = me
           this.socket.emit("cursorchange", me)
 
         })
@@ -245,7 +243,7 @@ export default {
       .on('getCount', count => this.setCount(count))
       // update Cursor position of collaborators
       .on('cursorupdate', participants => {
-        this.editor.extensions.options.participants.update(participants)
+        //this.editor.extensions.options.participants.update(participants)
         this.setParticipants(participants)
       })
   },
