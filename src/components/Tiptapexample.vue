@@ -238,13 +238,16 @@ export default {
       // get the current document and its version
       .on('init', data => this.onInit(data))
       // send all updates to the collaboration extension
-      .on('update', data => this.editor.extensions.options.collaboration.update(data))
+      .on('update', data => {
+        this.editor.extensions.options.collaboration.update(data)
+        this.editor.extensions.options.collaboration.updateCursors(data)
+      })
       // get count of connected users
       .on('getCount', count => this.setCount(count))
       // update Cursor position of collaborators
-      .on('cursorupdate', participants => {
-        //this.editor.extensions.options.participants.update(participants)
-        this.setParticipants(participants)
+      .on('cursorupdate', data => {
+        this.editor.extensions.options.collaboration.updateCursors(data)
+        this.setParticipants(data.participants)
       })
   },
   beforeDestroy() {

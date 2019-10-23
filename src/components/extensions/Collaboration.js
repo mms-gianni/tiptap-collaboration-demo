@@ -20,13 +20,14 @@ export default class Collaboration extends Extension {
       // let other participants know you are here
       this.options.me.cursor = state.selection.anchor
       this.options.me.focused = state.selection.focused
-      this.options.socket.emit('cursorupdate', this.options.me)
+      this.options.socket.emit('cursorchange', this.options.me)
     })
 
     this.sendUpdate = this.debounce(state => {
       const sendable = sendableSteps(state)
       this.options.me.cursor = state.selection.anchor
       this.options.me.focused = state.selection.focused
+
 
       if (sendable) {
         this.options.socket.emit('update', {
@@ -43,8 +44,35 @@ export default class Collaboration extends Extension {
 
     }, this.options.debounce)
 
+    this.updateLocalCursors = (state => {
+
+      const sendable = sendableSteps(state)
+      if (sendable) {
+        console.log(sendable.steps[0].slice.content.size)
+        console.log(sendable.steps[0].from)
+
+        //console.log(this.participants)
+        for (var participantID in this.participants) {
+
+          var cursor = this.participants[participantID].cursor
+          if (cursor != undefined && cursor > sendable.steps[0].from ) {
+              this.participants[participantID].cursor = cursor+sendable.steps[0].slice.content.size
+
+              console.log(sendable.steps[0].from+' '+sendable.steps[0].slice.content.size+' '+cursor+' '+this.participants[participantID].cursor)
+          }
+        }
+        this.options.updateCursors({participants: this.participants})
+      }
+
+    })
+
     this.editor.on('transaction', ({ state }) => {
+      this.updateLocalCursors(state)
+      console.log("cursorupdate from not sendable")
+
       this.sendUpdate(state)
+
+
     })
   }
 
@@ -70,9 +98,11 @@ export default class Collaboration extends Extension {
           steps.map(item => Step.fromJSON(schema, item.step)),
           steps.map(item => item.clientID),
         ))
+      },
 
 
-        console.log(steps)
+      updateCursors: ({ steps, version, participants }) => {
+        const { state, view, schema } = this.editor
         this.participants = participants
 
         //Set the decorations in the editor
@@ -100,7 +130,7 @@ export default class Collaboration extends Extension {
               dom.innerHTML = '<span class="'+cursorclass+'" '+displaycolor+'>'+displayname+'</span>'
               dom.style.display = 'inline'
               dom.class = 'tooltip'
-              decos.push(Decoration.widget(dec.cursor, dom))
+              decos.push(Decoration.widget(dec.cursor-1, dom))
             }
             return DecorationSet.create(state.doc, decos);
           }
