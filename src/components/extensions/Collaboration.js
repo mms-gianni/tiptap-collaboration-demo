@@ -48,17 +48,21 @@ export default class Collaboration extends Extension {
 
       const sendable = sendableSteps(state)
       if (sendable) {
-        console.log(sendable.steps[0].slice.content.size)
-        console.log(sendable.steps[0].from)
 
         //console.log(this.participants)
         for (var participantID in this.participants) {
 
           var cursor = this.participants[participantID].cursor
-          if (cursor != undefined && cursor > sendable.steps[0].from ) {
-              this.participants[participantID].cursor = cursor+sendable.steps[0].slice.content.size
+          if (cursor != undefined &&
+              sendable.steps[0].slice != undefined &&
+              cursor > sendable.steps[0].from
+              ) {
+                console.log(sendable.steps[0])
+                console.log(sendable.steps[0].slice.content.size)
+                console.log(sendable.steps[0].from)
+                this.participants[participantID].cursor = cursor+sendable.steps[0].slice.content.size
 
-              console.log(sendable.steps[0].from+' '+sendable.steps[0].slice.content.size+' '+cursor+' '+this.participants[participantID].cursor)
+                console.log(sendable.steps[0].from+' '+sendable.steps[0].slice.content.size+' '+cursor+' '+this.participants[participantID].cursor)
           }
         }
         this.options.updateCursors({participants: this.participants})
