@@ -56,8 +56,8 @@ export default class Collaboration extends Extension {
               sendable.steps[0].slice != undefined &&
               cursor > sendable.steps[0].from
               ) {
-                this.participants[participantID].cursor = cursor+sendable.steps[0].slice.content.size
-
+                var gap = sendable.steps[0].from-sendable.steps[0].to
+                this.participants[participantID].cursor = cursor+gap+sendable.steps[0].slice.content.size
                 //console.log(sendable.steps[0].from+' '+sendable.steps[0].slice.content.size+' '+cursor+' '+this.participants[participantID].cursor)
           }
         }
