@@ -20,10 +20,10 @@ export default class Collaboration extends Extension {
       // let other participants know you are here
       this.options.me.cursor = state.selection.anchor
       this.options.me.focused = state.selection.focused
-      this.options.socket.emit('cursorchange', this.options.me)
+      this.options.socket.emit('init', this.options.me)
     })
 
-    this.sendUpdate = this.debounce(state => {
+    this.sendUpdate = this.debounce(({state, transaction}) => {
       const sendable = sendableSteps(state)
       this.options.me.cursor = state.selection.anchor
       this.options.me.focused = state.selection.focused
@@ -36,7 +36,10 @@ export default class Collaboration extends Extension {
           participant: this.options.me,
         })
       } else {
-        //this.options.socket.emit('cursorupdate', this.options.me)
+        // only send on position changes
+        if (transaction.updated > 0) {
+          this.options.socket.emit('cursorchange', this.options.me)
+        }
       }
 
     }, this.options.debounce)
@@ -63,11 +66,10 @@ export default class Collaboration extends Extension {
 
     })
 
-    this.editor.on('transaction', ({ state }) => {
+    this.editor.on('transaction', ({state, transaction}) => {
       this.updateLocalCursors(state)
-      //console.log("cursorupdate from not sendable")
 
-      this.sendUpdate(state)
+      this.sendUpdate({state, transaction})
 
     })
   }
