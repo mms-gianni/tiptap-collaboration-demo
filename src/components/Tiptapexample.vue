@@ -205,7 +205,7 @@ export default {
           }
           this.editor.extensions.options.collaboration.me = me
           this.me = me
-          this.socket.emit("cursorchange", me)
+          this.socket.emit("init", me)
 
         })
 
