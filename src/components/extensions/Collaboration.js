@@ -83,7 +83,7 @@ export default class Collaboration extends Extension {
       },
       socket: '',
       version: 0,
-      clientID: Math.floor(Math.random() * 0xFFFFFFFF),
+      clientID: '',
       debounce: 250,
       onSendable: () => {},
       update: ({ steps, version, participants }) => {

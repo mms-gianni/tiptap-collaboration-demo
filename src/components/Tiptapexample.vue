@@ -1,7 +1,7 @@
 <template>
   <div class="editor">
     <b-alert variant="success" show dismissible>
-      You are automaticly logged in with a random user. You are : <b>{{ editor.extensions.options.collaboration.me.displayname }}</b>
+      You are automaticly logged in with a random user. You are : <b>{{ me.displayname }}</b>
     </b-alert>
 
     <template v-if="editor && !loading">
@@ -142,11 +142,10 @@ export default {
       editor: null,
       socket: null,
       count: 0,
-      participants: {
-        me: {
-          displayname: '',
-        }
+      me: {
+        displayname: '',
       },
+      participants: {},
     }
   },
   methods: {  
@@ -205,6 +204,7 @@ export default {
             thumbnail: response.data.results[0].picture.thumbnail
           }
           this.editor.extensions.options.collaboration.me = me
+          this.me = me
           this.socket.emit("cursorchange", me)
 
         })
