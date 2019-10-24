@@ -28,19 +28,16 @@ export default class Collaboration extends Extension {
       this.options.me.cursor = state.selection.anchor
       this.options.me.focused = state.selection.focused
 
-
       if (sendable) {
         this.options.socket.emit('update', {
-            version: sendable.version,
-            steps: sendable.steps.map(step => step.toJSON()),
-            clientID: this.options.clientID,
-            participant: this.options.me,
-          })
+          version: sendable.version,
+          steps: sendable.steps.map(step => step.toJSON()),
+          clientID: this.options.clientID,
+          participant: this.options.me,
+        })
       } else {
         //this.options.socket.emit('cursorupdate', this.options.me)
       }
-      
-
 
     }, this.options.debounce)
 
@@ -55,10 +52,10 @@ export default class Collaboration extends Extension {
           if (cursor != undefined &&
               sendable.steps[0].slice != undefined &&
               cursor > sendable.steps[0].from
-              ) {
-                var gap = sendable.steps[0].from-sendable.steps[0].to
-                this.participants[participantID].cursor = cursor+gap+sendable.steps[0].slice.content.size
-                //console.log(sendable.steps[0].from+' '+sendable.steps[0].slice.content.size+' '+cursor+' '+this.participants[participantID].cursor)
+          ) {
+            var gap = sendable.steps[0].from-sendable.steps[0].to
+            this.participants[participantID].cursor = cursor+gap+sendable.steps[0].slice.content.size
+            //console.log(sendable.steps[0].from+' '+sendable.steps[0].slice.content.size+' '+cursor+' '+this.participants[participantID].cursor)
           }
         }
         this.options.updateCursors({participants: this.participants})
@@ -71,7 +68,6 @@ export default class Collaboration extends Extension {
       //console.log("cursorupdate from not sendable")
 
       this.sendUpdate(state)
-
 
     })
   }
@@ -99,7 +95,6 @@ export default class Collaboration extends Extension {
           steps.map(item => item.clientID),
         ))
       },
-
 
       updateCursors: ({ steps, version, participants }) => {
         const { state, view, schema } = this.editor
