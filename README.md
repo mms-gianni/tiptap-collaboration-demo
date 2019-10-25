@@ -1,6 +1,6 @@
 # TipTap Collaboration Demo
 
-This Demo shows how to implement a collaboration Editor with participants.
+This demo shows how to implement a collaboration editor with participants in tiptap. 
 
 
 ![Netlify Status](https://api.netlify.com/api/v1/badges/a09ae0aa-a7fa-4432-9538-0b0661c2ac03/deploy-status)
@@ -12,7 +12,7 @@ Live Demo here:
 https://tiptap-collaboration-demo.netlify.com/
 
 
-Uses the tiptap Colaborationserver here: 
+Uses the prosemirror collaborationserver here: 
 https://github.com/mms-gianni/tiptap-collaborationserver 
 
 ## Project setup
