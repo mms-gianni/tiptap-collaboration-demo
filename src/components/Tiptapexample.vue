@@ -11,7 +11,7 @@
           <editor-menu-bar :editor="editor" v-slot="{ commands, isActive }">
             <div class="menubar">
               <button
-                class="menubar__button btn btn-default"
+                class="menubar__button btn btn-light"
                 :class="{ 'is-active': isActive.bold() }"
                 @click="commands.bold"
               >
@@ -19,7 +19,7 @@
               </button>
 
               <button
-                class="menubar__button btn btn-default"
+                class="menubar__button btn btn-light"
                 :class="{ 'is-active': isActive.italic() }"
                 @click="commands.italic"
               >
@@ -27,7 +27,7 @@
               </button>
 
               <button
-                class="menubar__button btn btn-default"
+                class="menubar__button btn btn-light"
                 :class="{ 'is-active': isActive.strike() }"
                 @click="commands.strike"
               >
@@ -35,7 +35,7 @@
               </button>
 
               <button
-                class="menubar__button btn btn-default"
+                class="menubar__button btn btn-light"
                 :class="{ 'is-active': isActive.underline() }"
                 @click="commands.underline"
               >
@@ -43,7 +43,7 @@
               </button>
 
               <button
-                class="menubar__button btn btn-default"
+                class="menubar__button btn btn-light"
                 :class="{ 'is-active': isActive.heading({ level: 1 }) }"
                 @click="commands.heading({ level: 1 })"
               >
@@ -51,7 +51,7 @@
               </button>
 
               <button
-                class="menubar__button btn btn-default"
+                class="menubar__button btn btn-light"
                 :class="{ 'is-active': isActive.heading({ level: 2 }) }"
                 @click="commands.heading({ level: 2 })"
               >
@@ -59,7 +59,7 @@
               </button>
 
               <button
-                class="menubar__button btn btn-default"
+                class="menubar__button btn btn-light"
                 :class="{ 'is-active': isActive.heading({ level: 3 }) }"
                 @click="commands.heading({ level: 3 })"
               >
@@ -83,7 +83,7 @@
               </button>
 -->
               <button
-                class="menubar__button btn btn-default"
+                class="menubar__button btn btn-light"
                 :class="{ 'is-active': isActive.blockquote() }"
                 @click="commands.blockquote"
               >
@@ -185,7 +185,7 @@ export default {
             // version is an integer which is incremented with every change
             version,
             // debounce changes so we can save some requests
-            debounce: 100,
+            debounce: 0,
             // onSendable is called whenever there are changed we have to send to our server
             onSendable: ({ sendable }) => {
               //this.socket.emit('update', sendable)
@@ -239,8 +239,8 @@ export default {
       .on('init', data => this.onInit(data))
       // send all updates to the collaboration extension
       .on('update', data => {
-        this.editor.extensions.options.collaboration.update(data)
         this.editor.extensions.options.collaboration.updateCursors(data)
+        this.editor.extensions.options.collaboration.update(data)
       })
       // get count of connected users
       .on('getCount', count => this.setCount(count))
@@ -348,10 +348,15 @@ export default {
   /*border-style: solid;*/
 }
 
-button .is-active {
+button.is-active {
   font-color:#FFF;
-  background-color: #000;
+  background-color: #DDD;
   font-weight: bold;
+}
+
+.btn {
+  margin: 5px;
+  border-color: #DDD;
 }
 
 blockquote {
