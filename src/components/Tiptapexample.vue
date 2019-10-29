@@ -185,7 +185,7 @@ export default {
             // version is an integer which is incremented with every change
             version,
             // debounce changes so we can save some requests
-            debounce: 0,
+            debounce: 100,
             // onSendable is called whenever there are changed we have to send to our server
             onSendable: ({ sendable }) => {
               //this.socket.emit('update', sendable)
