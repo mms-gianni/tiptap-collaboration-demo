@@ -107,27 +107,33 @@ export default class Collaboration extends Extension {
         let props = {
           decorations(state) {
             var decos = []
-            for (const [id, dec] of Object.entries(participants)){
-              var cursorclass = 'cursor'
-              var displayname = dec.displayname
-              var displaycolor = 'style="background-color:'+dec.displaycolor+'; border-top-color:'+dec.displaycolor+'"'
+            if (participants != undefined) {
 
-              const dom = document.createElement('div')
-              if (dec.focused==false) {
-                cursorclass += ' inactive'
-              }
-              
-              if (dec.clientID == clientID){
-                cursorclass += ' me'
-              }
-              if (displayname == false){
-                displayname = dec.clientID
-              } 
+              for (const [id, dec] of Object.entries(participants)){
+                if (dec.cursor == undefined) { continue; }
+                var cursorclass = 'cursor'
+                var displayname = dec.displayname
+                var displaycolor = 'style="background-color:'+dec.displaycolor+'; border-top-color:'+dec.displaycolor+'"'
 
-              dom.innerHTML = '<span class="'+cursorclass+'" '+displaycolor+'>'+displayname+'</span>'
-              dom.style.display = 'inline'
-              dom.class = 'tooltip'
-              decos.push(Decoration.widget(dec.cursor-1, dom))
+                const dom = document.createElement('div')
+                if (dec.focused==false) {
+                  cursorclass += ' inactive'
+                }
+                
+                if (dec.clientID == clientID){
+                  cursorclass += ' me'
+                }
+                if (displayname == false){
+                  displayname = dec.clientID
+                } 
+
+                dom.innerHTML = '<span class="'+cursorclass+'" '+displaycolor+'>'+displayname+'</span>'
+                dom.style.display = 'inline'
+                dom.class = 'tooltip'
+                decos.push(Decoration.widget(dec.cursor, dom))
+                console.log(dec.cursor)
+              }
+
             }
             return DecorationSet.create(state.doc, decos);
           }
