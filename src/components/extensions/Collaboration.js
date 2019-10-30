@@ -131,7 +131,6 @@ export default class Collaboration extends Extension {
                 dom.style.display = 'inline'
                 dom.class = 'tooltip'
                 decos.push(Decoration.widget(dec.cursor, dom))
-                console.log(dec.cursor)
               }
 
             }
