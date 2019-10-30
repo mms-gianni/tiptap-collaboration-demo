@@ -239,8 +239,8 @@ export default {
       .on('init', data => this.onInit(data))
       // send all updates to the collaboration extension
       .on('update', data => {
-        this.editor.extensions.options.collaboration.updateCursors(data)
         this.editor.extensions.options.collaboration.update(data)
+        this.editor.extensions.options.collaboration.updateCursors(data)
       })
       // get count of connected users
       .on('getCount', count => this.setCount(count))
