@@ -54,7 +54,7 @@ export default class Collaboration extends Extension {
           var cursor = this.participants[participantID].cursor
           if (cursor != undefined &&
               sendable.steps[0].slice != undefined &&
-              cursor > sendable.steps[0].from
+              cursor >= sendable.steps[0].from
           ) {
             var gap = sendable.steps[0].from-sendable.steps[0].to
             this.participants[participantID].cursor = cursor+gap+sendable.steps[0].slice.content.size
