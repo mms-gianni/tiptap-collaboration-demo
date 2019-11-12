@@ -176,6 +176,7 @@ export default {
               //displayname: document.querySelector('meta[name="userName"]').getAttribute('content'),
               //displayname: this.randomuser.name.first+" "+this.randomuser.name.last,
               displayname: "bla",
+              //displaycolor: '#555';
               displaycolor: this.getDisplaycolor(this.socket.id),
             },
             */
@@ -229,11 +230,10 @@ export default {
         var value = (hash >> (i * 8)) & 0xFF;
         colour += ('00' + value.toString(16)).substr(-2);
       }
-      return colour;      
+      return colour;
     },
   },
   mounted() {
-    console.log(process.env)
     this.socket = io(process.env.VUE_APP_SOCKETSERVER_HOST+':'+process.env.VUE_APP_SOCKETSERVER_PORT+'/doc-99')
       // get the current document and its version
       .on('init', data => this.onInit(data))
