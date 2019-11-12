@@ -1,4 +1,4 @@
-# TipTap Collaboration Demo
+# TipTap Collaboration [Demo](https://tiptap-collaboration-demo.netlify.com/)
 
 This demo shows how to implement a collaboration editor with participants in tiptap. 
 
@@ -8,10 +8,13 @@ This demo shows how to implement a collaboration editor with participants in tip
 
 ![screencapture](https://github.com/mms-gianni/tiptap-collaboration-demo/raw/master/doc/collaboration_new.gif "Preview collaborative editing")
 
-Based on https://tiptap.scrumpy.io/
+Based on VueJS and TipTap: https://tiptap.scrumpy.io/
 
 Live demo here: 
 https://tiptap-collaboration-demo.netlify.com/
+
+Video demo here: 
+https://www.youtube.com/watch?v=hC37irpHv0U 
 
 Uses the prosemirror collaborationserver here: 
 https://github.com/mms-gianni/tiptap-collaborationserver 
